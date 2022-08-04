@@ -1,0 +1,380 @@
+using System;
+
+using System.Collections.Generic;
+
+using System.ComponentModel;
+
+using System.Data;
+
+using System.Drawing;
+
+using System.Linq;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+using System.Windows.Forms;
+
+using SM = System.Media;
+
+
+
+namespace SoundPlayer
+
+{
+
+    public partial class Form1 : Form
+
+    {
+
+
+
+        public Form1()
+
+        {
+
+            InitializeComponent();
+
+            _tm = new Timer();
+
+        }
+
+        string path = System.Environment.CurrentDirectory;
+
+        string[] paths, files;
+
+        int iSutja = 0;
+
+        int iSajin = 1;
+
+        Timer _tm;
+
+        MediaPlayer.MediaPlayerClass _mediaPlayer;
+
+
+
+        enum EnumStatus
+
+        {
+
+            Play,
+
+            Stop,
+
+            Pause,
+
+        }
+
+        private void btnMP3_Click(object sender, EventArgs e)
+
+        {
+
+            string strFilePath = string.Empty;
+
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Multiselect = true;         
+
+            ofd.Filter = "mp3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+
+            {
+
+                if(_mediaPlayer == null)
+
+                {
+
+                    _mediaPlayer = new MediaPlayer.MediaPlayerClass();
+
+                }
+
+
+
+                files = ofd.FileNames;
+
+                paths = ofd.FileNames;
+
+                for(int x = 0; x<files.Length; x++)
+
+                {
+
+                    track_list.Items.Add(files[x]);
+
+                }
+
+                if (track_list.Items.Count >= 1)
+
+                {
+
+                    _mediaPlayer.FileName = files[iSutja]; // 파일경로 불려오기
+
+                    pictureBox1.Image = Image.FromFile(path + "/사진/" + iSajin + ".jpg");
+
+                    _mediaPlayer.Stop();
+
+                    changeStatus(EnumStatus.Stop); //상태 출력
+
+                    lblFileName.Text = files[iSutja];
+
+
+
+                    tbarVolume.Value = TrackbarToVolume(-1200, 0, _mediaPlayer.Volume);
+
+                    lblVolume.Text = tbarVolume.ToString();
+
+
+
+                    _tm.Interval = 500;
+
+                    _tm.Tick += _tm_Tick;
+
+                }
+
+            }
+
+        }
+
+
+
+        private void _tm_Tick(object sender, EventArgs e)
+
+        {
+
+            tbarMain.Minimum = 0;
+
+            tbarMain.Maximum = (int)_mediaPlayer.Duration; // 파일의 전체 시간
+
+            tbarMain.Value = (int)_mediaPlayer.CurrentPosition; // 파일의 재생 위치
+
+
+
+            string strCurrentTime = TimeSpan.FromSeconds(_mediaPlayer.CurrentPosition).ToString(@"hh\:mm\:ss"); // 시간 포맷
+
+            string strFullTime = TimeSpan.FromSeconds(_mediaPlayer.Duration).ToString(@"hh\:mm\:ss"); // 시간 포맷
+
+            lblTime.Text = $"{strCurrentTime} / {strFullTime}";
+
+            Console.WriteLine(lblTime.Text);
+
+        }
+
+        private void changeStatus(EnumStatus enumStatus)
+
+        {
+
+            lblStatus.Text = enumStatus.ToString();
+
+        }
+
+
+
+        private void btnPlay_Click(object sender, EventArgs e)
+
+        {
+
+            _mediaPlayer.Play();
+
+            _tm.Start();
+
+            timer1.Start();
+
+            changeStatus(EnumStatus.Play);
+
+        }
+
+
+
+        private void btnStop_Click(object sender, EventArgs e)
+
+        {
+
+            _mediaPlayer.Stop();
+
+            _tm.Stop();
+
+            changeStatus(EnumStatus.Stop);
+
+        }
+
+
+
+        private void btnPause_Click(object sender, EventArgs e)
+
+        {
+
+            _mediaPlayer.Pause();
+
+            changeStatus(EnumStatus.Pause);
+
+        }
+
+        
+
+
+
+        private void tbarVolume_Scroll(object sender, EventArgs e)
+
+        {
+
+            lblVolume.Text = tbarVolume.Value.ToString();
+
+
+
+            int iVolume = VolumeToTrackbar(-1200, 0, tbarVolume.Value);
+
+
+
+            _mediaPlayer.Volume = iVolume;
+
+
+
+            if (tbarVolume.Value == 0)
+
+            {
+
+                _mediaPlayer.Mute = true;
+
+            }
+
+            else
+
+            {
+
+                _mediaPlayer.Mute = false;
+
+                _mediaPlayer.Volume = iVolume;
+
+            }
+
+        }
+
+
+
+        private int TrackbarToVolume(int Min, int Max, int Value) 
+
+        { 
+
+            double iRange = Max - Min; 
+
+            double iTarget = Value - Min; 
+
+            return (int)(iTarget / iRange * 100); 
+
+        }
+
+
+
+        private int VolumeToTrackbar(int Min, int Max, int Per) 
+
+        { 
+
+            double iRange = Max - Min; 
+
+            double iTarget = iRange * Per / 100; 
+
+            return (int)(iTarget + Min); 
+
+        }
+
+
+
+        private void left_Click(object sender, EventArgs e)
+
+        {
+
+            if (track_list.SelectedIndex > 0)
+
+            {
+
+                timer1.Stop();
+
+                iSajin--;
+
+                changeStatus(EnumStatus.Play);
+
+                track_list.SelectedIndex = track_list.SelectedIndex - 1;
+
+            }
+
+        }
+
+
+
+        private void track_list_SelectedIndexChanged(object sender, EventArgs e)
+
+        {
+
+            timer1.Stop();
+
+            _mediaPlayer.BaseURL = paths[track_list.SelectedIndex];
+
+            pictureBox1.Image = Image.FromFile(path + "/사진/" + iSajin + ".jpg");
+
+            _mediaPlayer.FileName = files[track_list.SelectedIndex];
+
+            lblFileName.Text = files[track_list.SelectedIndex];
+
+            _mediaPlayer.Play();
+
+            timer1.Start();
+
+        }
+
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+
+        {
+
+            timer1.Interval = 10000;
+
+            timer1.Enabled = true;
+
+            if(track_list.SelectedIndex < track_list.Items.Count - 1)
+
+            {
+
+                iSajin++;
+
+                track_list.SelectedIndex = track_list.SelectedIndex + 1;
+
+                if(iSajin == 5)
+
+                {
+
+                    iSajin=1;
+
+                    track_list.SelectedIndex = 0;
+
+                }
+
+            }
+
+        }
+
+
+
+        private void right_Click(object sender, EventArgs e)
+
+        {
+
+            if (track_list.SelectedIndex < track_list.Items.Count - 1)
+
+            {
+
+                timer1.Stop();
+
+                iSajin++;
+
+                track_list.SelectedIndex = track_list.SelectedIndex + 1;
+
+            }
+
+        }
+
+    }
+
+}
+
