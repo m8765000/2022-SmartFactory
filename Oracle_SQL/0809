@@ -1,0 +1,173 @@
+select count(*), sum(sal), min(sal), max(sal),avg(sal) from emp;
+
+#rollup
+select deptno, job, count(*), from emp
+group by rollup(deptno, job);
+#cube
+select deptno, job, count(*) from emp
+group by Cube(deptno, job);
+
+select deptno, job, count(*) from emp
+group by deptno, job
+Having count(*) > 3;
+
+##PIVOT
+SELECT * FROM (SELECT DEPTNO, JOB, SAL FROM EMP)
+PIVOT (MAX(SAL) FOR DEPTNO IN (10,20,30))
+ORDER BY JOB;
+
+# join
+# table 1 ( emp )
+select * from emp;
+# table 2 ( dept )
+select * from dept;
+
+# 기본조인 테이블 두개를 붙이면 곱하기 개념 즉 4개테이블 4개테이블 조인 = 16개테이블
+select * from dept, regions;
+
+#실질적 조인
+SELECT * FROM EMP, DEPT
+WHERE EMP.DEPTNO = DEPT.DEPTNO 
+ORDER BY EMPNO; ## 테이블1 + 테이블2 (테이블의 확장)
+
+#조인 활용
+SELECT EMPNO,ENAME,DNAME FROM EMP, DEPT
+WHERE EMP.DEPTNO = DEPT.DEPTNO
+ORDER BY EMPNO;
+
+select ename, job, hiredate, dname, loc from emp, dept
+where emp.deptno = dept.deptno
+order by hiredate;
+
+# 8-3 테이블 이름을 별칭으로 표현하기
+SELECT * FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+ORDER BY EMPNO;
+
+#급여가 2000 초과인 사원들의 부서정보 사워정보를 #239 1번 문제
+SELECT E.DEPTNO, DNAME, EMPNO, SAL
+FROM EMP E, DEPT D
+WHERE E.DEPTNO, = D.DETPNO AND SAL > 2000
+ORDER BY DEPTNO;
+
+# 등가조인 ==> INNER JOIN, SIMPLE JOIN
+SELECT EMPNO, ENAME, E.DEPTNO, DNAME,  LOC
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO;
+
+#비등가 조인
+SELECT * FROM EMP;
+#TABLE2
+SELECT * FROM SALGRADE;
+#TABLE3 <------- 비등가 조인
+SELECT * FROM EMP E, SALGRADE S
+WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL;
+조인은 기존에있는파일을 가지고 새로운 테이블을 만들기 위해 사용한다.
+불필요한 테이블을 만들필요없어 효율적으로 데이터를 사용할 수있다.
+
+#TABLE4
+SELECT ENAME, JOB, SAL, GRADE FROM EMP E, SALGRADE S
+WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL;
+
+#8-8 같은 테이블을 두 번 사용해서 자체 조인 NULL값은 버림
+SELECT E1.EMPNO, E1.ENAME, E1.MGR, E2.EMPNO, E2.ENAME
+FROM EMP E1, EMP E2
+WHERE E1.MGR = E2.EMPNO;
+
+#INNER JOIN 해보니 NULL 값에 대한 데이터 유실이 생겼다.
+#이를 해결한 JOIN ==> 외부조인 OUTER JOIN ==> LEFT JOIN, RIGHT JOIN
+
+#LEFT JOIN 오른쪽에(+)
+SELECT E1.EMPNO, E1.ENAME, E1.MGR, E2.EMPNO, E2.ENAME
+FROM EMP E1, EMP E2
+WHERE E1.MGR = E2.EMPNO(+)
+ORDER BY E1.EMPNO;
+
+#RIGHT JOIN 왼쪽에(+)
+SELECT E1.EMPNO, E1.ENAME, E1.MGR, E2.EMPNO, E2.ENAME
+FROM EMP E1, EMP E2
+WHERE E1.MGR(+) = E2.EMPNO
+ORDER BY E1.EMPNO;
+NULL인값들도 불러와주기 위해 사용한다, NULL값을 만들지 않아야한다 ==> 정규화
+
+아우터조인을 한후에 내부조인을 해야한다==> 데이터가 날라가기 때문이다.
+
+POSTGRE SQL 윈도우 서버에서는 11보다좋음
+
+#ANSI 표준 SQL JOIN  구문
+#NATURAL JOIN
+# P232
+SELECT E.EMPNO, E.ENAME, E.JOB, E.MGR, E.HIREDATE, E.SAL, E.COMM,
+       DEPTNO, D.DNAME, D.LOC
+    FROM EMP E NATURAL JOIN DEPT D
+ORDER BY DEPTNO, E.EMPNO;
+#2
+SELECT E.DEPTNO, D.DNAME, TRUNC(AVG(SAL)), MAX(SAL), MIN(SAL), COUNT(*) 
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+GROUP BY E.DEPTNO, D.DNAME;
+#3
+SELECT D.DEPTNO, DNAME, EMPNO, ENAME, JOB, SAL 
+FROM EMP E, DEPT D
+WHERE E.DEPTNO(+) = D.DEPTNO
+ORDER BY D.DEPTNO;
+#4
+SELECT D.DEPTNO, D.DNAME, E.EMPNO, E.ENAME, E.MGR, E.SAL, E.DEPTNO,
+S.LOSAL, S.HISAL, S.GRADE, E2.EMPNO, E2.ENAME 
+FROM EMP E, DEPT D, SALGRADE S, EMP E2
+WHERE E.DEPTNO(+) = D.DEPTNO
+    AND E.SAL > S.LOSAL(+) AND E.SAL <= S.HISAL(+)
+    AND E.MGR = E2.EMPNO(+)
+ORDER BY D.DEPTNO, D.DNAME;
+
+서브 쿼리 앞의 쿼리 값에서 뒤에 값빼는방법
+SELECT (
+    (SELECT COUNT(CITY) FROM STATION)
+    -
+    (SELECT COUNT(DISTINCT CITY) FROM STATION)
+    )
+FROM DUAL;
+
+#Subquery
+#사원 이름이 jones인 사원의 급여를 출력해 봅시다.
+SELECT SAL FROM EMP WHERE ENAME = UPPER('JONES');
+#급여가 $2975 보다 높은 금액을 받는 사원 정보를 출력
+SELECT * FROM EMP WHERE SAL > 2975;
+#서버쿼리를 활용한 합성
+SELECT * FROM EMP WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = UPPER('JONES'));
+
+#EMP테이블 사원 이름이 ALLEN인 사원의 추가 수당(COMM)보다 많이 받는 사원들은 누구인가요??
+SELECT * FROM EMP WHERE COMM > (SELECT COMM FROM EMP WHERE ENAME = UPPER('ALLEN'));
+
+#실행 결과가 하나인 단일행 서브쿼리
+SELECT HIREDATE FROM EMP WHERE ENAME = 'SCOTT';
+#SCOTT보다 일찍 입사한 사원은?
+SELECT * FROM EMP
+WHERE HIREDATE < ();
+#합성
+SELECT * FROM EMP
+WHERE HIREDATE < ( SELECT HIREDATE FROM EMP
+                    WHERE ENAME = 'SCOTT'                    )
+ORDER BY HIREDATE, ENAME;
+
+#조인과 서브쿼리를 함께 사용
+SELECT E.EMPNO, E.ENAME, E.JOB, E.SAL,
+       D.DEPTNO, D.DNAME, D.LOC
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+    AND E.DEPTNO = 20
+    AND E.SAL > (SELECT TRUNC(AVG(SAL)) FROM EMP);
+    #9-3 실행 결과가 여러 개인 다중행 서브쿼리
+SELECT * FROM EMP WHERE DEPTNO IN (20,30);
+#각 부서별 최고 급여와 동일한 급여를 받는 사원 정보 출력하기
+SELECT * FROM EMP WHERE SAL IN (SELECT MAX(SAL) FROM EMP GROUP BY DEPTNO);
+
+#ANY
+SELECT MAX(SAL) FROM EMP GROUP BY DEPTNO;
+
+SELECT * FROM EMP
+WHERE SAL = ANY (SELECT MAX(SAL) FROM EMP GROUP BY DEPTNO);
+
+#SOME
+SELECT * FROM EMP
+WHERE SAL = SOME (SELECT MAX(SAL) FROM EMP GROUP BY DEPTNO);
