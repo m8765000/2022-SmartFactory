@@ -27,4 +27,30 @@ a {
 
 display:inline-block;
 
+#box_a{
+	float:left;
+}
+#box_b{
+	float:right;
+}
+<div id="box_a"></div>
 
+이미지와 테두리 사이의 흰색 공간 삭제하기
+.items img{
+display : block;
+}
+.clear {
+	clear:left
+}
+<div class="clear"></div> 중간에 넣으면 그 아래 코드는 끊어 나눌 수 있음
+
+position :relative 상대적으로 설정
+원래 박스가 있던 위치를 기준으로 박스를 이동
+absolute 웹을 기준으로 절대적으로 설정 relative와 반대되는 개념
+
+부모 박스의 position을 relative or absolute로 설정되어있으면
+부모 박스의 원점을 기준으로 배치
+부모 relative 박스 absolute 부모박스 기준으로 박스의 위치가 이동됨
+
+html 레이아웃
+header footer nav main section aside
