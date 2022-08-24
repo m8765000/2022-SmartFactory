@@ -1,0 +1,233 @@
+mv hello.c ~/work/html2
+
+html2옮기기 ~는 나의 위치
+
+cat 명령어 파일안의 내용보기
+
+file 명령어 파일의 종류 상태 출력
+
+i,a 입력모드
+
+hjkl 명령모드 커서 이동
+
+
+
+yy한줄 복사, p 붙어넣기, d 삭제
+
+
+
+:setnu 코드 명령어 줄 숫자로 설명
+
+
+
+vi 꾸미기 .vimrc
+
+﻿set autoindent " 자동으로 들여쓰기를 한다.  
+
+
+
+set cindent " C 프로그래밍을 할때 자동으로 들여쓰기를 한다.  
+
+
+
+set smartindent " 좀더 똑똑한 들여쓰기를 위한 옵션이다.  
+
+
+
+set nowrapscan " 검색할 때 문서의 끝에서 다시 처음으로 돌아가지 않는다.  
+
+
+
+set nobackup " 백업 파일을 만들지 않는다.  
+
+
+
+ 
+
+
+
+set ruler " 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.  
+
+
+
+set tabstop=4 " Tab을 눌렀을 때 8칸 대신 4칸 이동하도록 한다.  
+
+
+
+set shiftwidth=4 " 자동 들여쓰기를 할때 4칸 들여쓰도록 한다.  
+
+
+
+set number  
+
+
+
+set bs=2  
+
+
+
+ 
+
+rm 파일 지우기
+
+rm -rf test 파일 지우기 하위 파일까지
+
+
+
+cp 파일 복사 cp 원본파일 복사할파일이름
+
+
+
+touch 파일이름, touch 비어있는 파일 만들기
+
+
+
+head ,tail 로그 확인시 텍스트로 작성된 파일의 앞 10행 또는 마지막 10행만 출력
+
+head -n 1, tail -n 2 특정행만 가능
+
+more 텍스트로 작성된 파일을 화면에 페이지 단위로 출력
+
+
+
+ll 파일 목록 입력출력쓰기 상태 사용자 사용 시간 출력
+
+sudo chown iot:iot html3 권한 root에서 iot로 바꾸기
+
+
+
+vi /etc/passwd
+
+
+
+sudo apt install csh
+
+
+
+csh -> bash -> 탈출 exit 두번 csh에서 bash로 cshell 본래 shell을 왔다갔다할수있음
+
+
+
+운영체제 안에 쉘 안에 커널이 있음 사용자간 커널과의 다리역할
+
+ 
+
+sudo vi /etc/shadow 사용자의 비밀번호가 있음
+
+
+
+sudo adduser heo
+
+su heo 사용자 바꾸기 exit하여 돌아가기
+
+
+
+sudo passwd heo 비밀번호 바꾸기
+
+heo 사용자 권한 추가하기
+
+chmod 640 /etc/sudoers으로 바꿔서 쓸수있게함
+
+ll /etc/sudoers
+
+vi /etc/sudoers
+
+
+
+user privilege specification
+
+root ALL=(ALL:ALL) all
+
+heo 추가
+
+chmod 440 /etc/sudoers으로 바꿔서 읽을수만있게함
+
+
+
+sudo userdel testuser 하면 유저는 날라가지만 디렉토리는 남음
+
+sudo rm -rf testuser해야함
+
+
+
+/etc/passwd를 확인하여 계정을 보면 없음
+
+
+
+파일권한과 관련된 명령어를 기억
+
+chmod chown
+
+
+
+ln -s 링크파일이름 실행파일이름 ln -s link_hello hello
+
+바로가기를 만드는 느낌 링크파일은 ls시 파란색으로뜸
+
+
+
+ffmpeg 
+
+javascript html 프레임워크
+
+sgml
+
+xml html과 비슷하지만 태그이름에 따라 문서정의가 바뀜
+
+
+
+https://www.w3.org/ 
+
+html 관련 문서 자료를 모여있는 사이트
+
+table 태그
+
+<table border =""> <tr> <td>
+
+
+
+<style>
+
+table{
+
+ border : solid 1px red;
+
+ border-collapse: collapse;
+
+ padding : 8px;
+
+}
+
+
+
+th colsapn="2"
+
+
+
+td rowspan="2"
+
+
+
+css
+
+인라인
+
+외부 스타일시트
+
+rgb
+
+cmyk
+
+css링크
+
+아이디 선택자 # 하나의 영역을 지정하여 css로 꾸밀수 있다. 하나의 웹페이지에서 유일 중복사용불가
+
+#position
+
+<span id="position"></span>
+
+클래스 선택자 . 두개 이상의 영역을 css로 꾸밀수 있다.
+
+.weather
+
+<span class="weather"></span>
