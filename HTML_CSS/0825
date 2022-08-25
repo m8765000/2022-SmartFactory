@@ -1,0 +1,256 @@
+visual studio의 장점 플러그인
+문법관련파일 snippets
+html와 script는 다른언어이지만 head 사이에 script를 추가함으로
+브라우저에서 실행이 가능하도록 모듈이 추가된것
+'사이에 \n 사용가능  "" 도 사용사능'
+ 
+visual studio code 확장에서 javascript 플러그인, live server, open in browser 설치
+우측하단  golive실행하면 javascript코드 브라우저에서 실행가능
+alert 페이지 오픈시 알림으로 실행 document 웹페이지에 출력됨
+
+타입스크립트는 자바스크립트의 슈퍼셋, 타입스크립트는 자바스크립트의 번역이 가능하다.
+
+var list ='';
+list += '<ul>';
+list += '<li>Hello</li>';
+list += '<li>JavaScript</li>';
+list += '</ul>';
+
+var a;
+var b='';
+document.writeln(typeof('String')); //string 
+document.writeln(typeof(273)); //number 
+document.writeln(typeof(a)); //undifined 
+document.writeln(typeof(3.141592)); //number
+document.writeln(typeof(true)); //boolean
+document.writeln(typeof(b)); //string
+
+prompt 문자를 입력 받는법 2번째가 입력받을 값 (문자)
+var input = prompt('입력하세요', '123');
+document.writeln(input):
+
+강제로 자료형 변환시키기
+다른 자료형을 숫자로 Number() 함수
+다른 자료형은 문자열로 String() 함수
+
+javascript로 두 정수를 입력 받아 합을 출력해 주세요
+prompt() --------> 2번 사용
+Number() 사용
+덧셈하고 출력
+
+var input = prompt('입력하세요', '');
+var input2 = prompt('입력하세요', '');
+var plus = Number(input2) + Number(input);
+document.writeln(plus):
+
+NaN(Not a Number)
+document.writeln(Boolean(0)); // 5개 모두 false
+document.writeln(Boolean(NaN));
+document.writeln(Boolean(''));
+document.writeln(Boolean(null));
+document.writeln(Boolean(undefined));
+
+alert('273' == 273); //자바스크립트에서는 true로 출력
+일치 연산자 자료형이 다른 것을 구분하고 싶을 때 사용
+ === : 양변의 자료형과 값이 일치, !== : 양번의 자료형과 값이 다름
+
+|| 
+true면 우변무시
+false 면 우변이 참인지 거짓인지 검사
+
+sudo service --status-all
++는 실행중, -는 아닌것
+sudo service --status-all | grep ssh
+
+sudo service ssh restart
+sudo service ssh stop
+sudo service ssh start
+
+xshell putty랑 다른 프로그램
+https://www.netsarang.com/ko/xshell-download/
+배열 요소 var arr = [123, String, true, function(){}];
+let fruits = new Array('사과' + '바나나');
+document.write(fruits);
+
+1개의 정수 숫자를 입력받습니다.
+prompt();
+홀수 짝수 구분
+-------------------
+7 홀수 입니다.
+
+var input = prompt('입력하세요', '');
+if(Number(input) % == 1){
+	document.writeln("홀수입니다.");
+}
+else
+document.writeln("짝수입니다.");
+
+function f2 (a,b ){
+	document.write(a+b);
+}
+
+function callTenTimes(callback){
+for(var i=0; i<10; i++){
+	callback();
+}
+}
+
+var callback= function(){
+alert('함수 호출');
+}
+//실제동작
+callTenTimes(callback);
+
+function test(name) {
+	var output = 'Hello' + name + '...!';
+	return function(){
+		alert(output);
+	};
+}
+test('JavaScript')();
+인코딩 디코딩 웹에서 사용하는 언어들이 많기때문에 종류가 많다.
+
+isFinite() 무한대 일때 false를 출력한다.
+isNaN()은 스스로 비교할 수 없음 isNaN(10 * 'abc') => true 출력
+예외처리 대상 Error
+
+자바스크립트의 기본 자료형
+숫자 문자열 불 함수 undifined / + object
+
+배열은 요소에 인덱스로 접근/객체는 요소에 키로 접근
+요소 : 배열 내부에 있는값
+속성 : 객체 내부에 있는값
+
+with를 사용하여 배열값을 넣을수 있다.
+getElementsById()
+getElementsByName()
+visual studio의 장점 플러그인
+문법관련파일 snippets
+html와 script는 다른언어이지만 head 사이에 script를 추가함으로
+브라우저에서 실행이 가능하도록 모듈이 추가된것
+'사이에 \n 사용가능  "" 도 사용사능'
+ 
+visual studio code 확장에서 javascript 플러그인, live server, open in browser 설치
+우측하단  golive실행하면 javascript코드 브라우저에서 실행가능
+alert 페이지 오픈시 알림으로 실행 document 웹페이지에 출력됨
+
+타입스크립트는 자바스크립트의 슈퍼셋, 타입스크립트는 자바스크립트의 번역이 가능하다.
+
+var list ='';
+list += '<ul>';
+list += '<li>Hello</li>';
+list += '<li>JavaScript</li>';
+list += '</ul>';
+
+var a;
+var b='';
+document.writeln(typeof('String')); //string 
+document.writeln(typeof(273)); //number 
+document.writeln(typeof(a)); //undifined 
+document.writeln(typeof(3.141592)); //number
+document.writeln(typeof(true)); //boolean
+document.writeln(typeof(b)); //string
+
+prompt 문자를 입력 받는법 2번째가 입력받을 값 (문자)
+var input = prompt('입력하세요', '123');
+document.writeln(input):
+
+강제로 자료형 변환시키기
+다른 자료형을 숫자로 Number() 함수
+다른 자료형은 문자열로 String() 함수
+
+javascript로 두 정수를 입력 받아 합을 출력해 주세요
+prompt() --------> 2번 사용
+Number() 사용
+덧셈하고 출력
+
+var input = prompt('입력하세요', '');
+var input2 = prompt('입력하세요', '');
+var plus = Number(input2) + Number(input);
+document.writeln(plus):
+
+NaN(Not a Number)
+document.writeln(Boolean(0)); // 5개 모두 false
+document.writeln(Boolean(NaN));
+document.writeln(Boolean(''));
+document.writeln(Boolean(null));
+document.writeln(Boolean(undefined));
+
+alert('273' == 273); //자바스크립트에서는 true로 출력
+일치 연산자 자료형이 다른 것을 구분하고 싶을 때 사용
+ === : 양변의 자료형과 값이 일치, !== : 양번의 자료형과 값이 다름
+
+|| 
+true면 우변무시
+false 면 우변이 참인지 거짓인지 검사
+
+sudo service --status-all
++는 실행중, -는 아닌것
+sudo service --status-all | grep ssh
+
+sudo service ssh restart
+sudo service ssh stop
+sudo service ssh start
+
+xshell putty랑 다른 프로그램
+https://www.netsarang.com/ko/xshell-download/
+배열 요소 var arr = [123, String, true, function(){}];
+let fruits = new Array('사과' + '바나나');
+document.write(fruits);
+
+1개의 정수 숫자를 입력받습니다.
+prompt();
+홀수 짝수 구분
+-------------------
+7 홀수 입니다.
+
+var input = prompt('입력하세요', '');
+if(Number(input) % == 1){
+	document.writeln("홀수입니다.");
+}
+else
+document.writeln("짝수입니다.");
+
+function f2 (a,b ){
+	document.write(a+b);
+}
+
+function callTenTimes(callback){
+for(var i=0; i<10; i++){
+	callback();
+}
+}
+
+var callback= function(){
+alert('함수 호출');
+}
+//실제동작
+callTenTimes(callback);
+
+function test(name) {
+	var output = 'Hello' + name + '...!';
+	return function(){
+		alert(output);
+	};
+}
+test('JavaScript')();
+인코딩 디코딩 웹에서 사용하는 언어들이 많기때문에 종류가 많다.
+
+isFinite() 무한대 일때 false를 출력한다.
+isNaN()은 스스로 비교할 수 없음 isNaN(10 * 'abc') => true 출력
+예외처리 대상 Error
+
+자바스크립트의 기본 자료형
+숫자 문자열 불 함수 undifined / + object
+
+배열은 요소에 인덱스로 접근/객체는 요소에 키로 접근
+요소 : 배열 내부에 있는값
+속성 : 객체 내부에 있는값
+
+with를 사용하여 배열값을 넣을수 있다.
+getElementsById()
+getElementsByName()
+<p id="demo"></p>
+<script>
+document.getElementById("demo").innerHTML = 
+</script>
