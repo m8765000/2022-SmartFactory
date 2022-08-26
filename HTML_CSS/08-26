@@ -1,0 +1,173 @@
+function Rectangle(width, height){
+ this.width = width,
+ this. height = height
+}
+Rectangle.prototype.getArea = function(){
+ return this.width * this.height;
+}
+var rectangle = new Rectangle(5, 7);
+var rec1 = new Rectangle(); //object
+var rec2; //undefined
+var rec3 = new Rectangle(3,4,5); // object
+
+document.write(rectangle.getArea());
+document.write(rec.getArea()); // 12가 나옴
+
+문법이 특이하다고 느낄수있다, 브라우저에 따라 결과가 바뀔수 있다.
+수업은 크롬기준으로 진행
+
+function Square(length) {
+ this.base = Rectangle;
+ this.base(length, length);
+}
+Square.prototype = Rectangle.prototype; //메소드 상속
+Square.prototype.constructor = Square; //생성자 정의
+
+var Square = new Square(5,5);
+document.write(Square.getArea());
+
+var primitiveNumber = 273;
+var objectNumber = new Number(273);
+
+Number.prototype.method = function(){
+ return '동작함!';
+}
+document.write(primitiveNumber.method() + ' ' + objectNumber.method());
+자바스크립트는 모든것이 객체 내장객체
+
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function Student(name, korean, math, english, science){
+            this.이름 = name;
+            this.국어 = korean;
+            this.수학 = math;
+            this.영어 = english;
+            this.과학 = science;
+
+        this.getSum = function() {
+            return this.국어 + this.수학 + this.영어 + this.과학;
+        };
+        this.getAverage = function(){
+            return this.getSum() / 4;
+        };
+        this.toString = function(){
+            return this.이름 + '\t' + this.getSum() + '\t' + this.getAverage();  
+        };
+    }
+
+    var students = [];
+    students.push(new Student('윤하린', 96, 98, 92, 98));
+
+    students.push(new Student('윤명월', 92, 94, 88, 98));
+
+    students.sort(function (left, right){
+        return right.getSum() - left.getSum();
+    });
+    students = students.slice(0,3);
+
+    var output = '이름\t총점\t평균\n';
+    for(var i in students){
+        output += students[i].toString() + '\n';
+    }
+    document.write(output);
+    alert(output);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+var number = 273.5210332;
+
+documnet.write(number.toFixed(1)); // 소숫점 첫째자리까지 표현
+
+var inf = 3 * 'abc'; // NaN
+var inf2 = Number.NaN;
+var inf3 = Number.POSITIVE_INFINITY;
+var inf4 = Number.MAX_VALUE;
+ctrl + / 키 주석처리 단축키
+
+자바스크립트의 장점 문자열처리가 강력하다.
+
+Array(10); 매개변수만큼의 크기를 가지는 배열
+Array(1,2,3,4,5); 매개변수로 배열을 만듦
+
+var array = new Array(52, 273, 103, 32);
+array.sort(function (left, right){
+ return left-right;
+});
+document.write(array); //오름차순
+특정요소 제거
+Array.prototype.remove = function (index) {
+ this.splice(index, 1);
+}
+javascript date time format
+ 
+map() 기존의 배열에 특정 규칙을 적용해 새로운 배열을 만듭니다.
+var array = [1,2,3,4,5,6,7,8,9,10];
+
+var output = array.map(function (element) {
+ return element * element;
+});
+
+document(output);
+
+var out_filter = array.filter(function(element, index, array){
+ return element <=5;
+});
+
+var out_every = array.every(function(value){ //true
+ return value < 11;
+});
+
+var out_some = array.some(function)(value){ //true
+ return value == 9;
+}
+언어에 상관없이 출력될수 있는것이 장점이다.
+
+window.open('http://www.naver.com', 'child', 'width=600, height=300', true); //네이버 새창이뜸
+
+var child = window.open('', '', 'width=300, height=200');
+
+child.document.write('<h1>제목입니다. </h1>');
+
+child.moveTo(0,0);
+serInterval(function(){
+ child.moveBy(10, 10);
+}, 1000);
+onload 열린창을 활용하는 이벤트
+
+sudo mv ./img ../ 이전 폴더로 옮기기
+
+window.onload = function(){
+ var img = document.createElement('img');
+ img.src = '../img/logo.gif';
+ img.width = 500;
+ img.height = 350;
+ 
+ document.body.appendChild(img);
+}
+
+window.onload = function(){
+ var headers = document.getElementByTagName('h1');
+ for(var i=0; i<header.lenght; i++){
+ headers[i].innerHTML = '내용 입력' + i;
+}
+}
+
+<h1>Header 1</h1> //h1 태그값을 한꺼번에 바꿀수있음 
+sudo cp ~/다운로드/jquery-3.6.0.js ./ js폴더(현재폴더)로 다운로드에있는파일 복사하기
+
+<script> //모든 css에 빨간색 적용
+$(document).ready(function(){
+$('*').css('color','red);
+});
+</script>
+
+https://www.andong.go.kr/portal/contents/corona_index.jsp
+페이지 소스보기
+219부터 681까지 복사해서 테이블 출력
