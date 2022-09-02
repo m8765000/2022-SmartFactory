@@ -1,0 +1,345 @@
+윈도우는 대소문자 구분x
+
+
+
+npm init
+
+npm install express
+
+npm install oracledb
+
+
+
+package.json
+
+  "main": "app.js",
+
+
+
+app.js
+
+var express = require('express')
+
+var app = express()
+
+
+
+app.get('/', (req, res) => {
+
+    res.send('Main page')
+
+})
+
+
+
+var server = app.listen(5000, function() {
+
+    var host = server.address().address
+
+    var port = server.address().port
+
+    console.log("서버시작 http://%s%S",host, port)
+
+})
+
+
+
+npm install ejs
+
+
+
+설치확인
+
+package.json에서     "ejs": "^3.1.8"
+
+
+
+views폴더 html 템플릿과 관련된 내용을 담는 폴더
+
+ejs파일 생성 html 코드 작성
+
+
+
+app.js
+
+var express = require('express')
+
+var app = express()
+
+
+
+app.set('view engin', 'ejs') //html template을 ejs로 사용하겠습니다.
+
+app.set('views', './views') //views 폴더를 ./views로 지정하겠습니다.
+
+app.get('/', (req, res) => {
+
+    res.send('Main page')
+
+})
+
+
+
+app.get('/ejs_test', (req, res)=>{
+
+    res.render('index.ejs')
+
+})
+
+var server = app.listen(5000, function() {
+
+    var host = server.address().address
+
+    var port = server.address().port
+
+    console.log("서버시작 http://%s%S",host, port)
+
+})
+
+
+
+test3 폴더 index.ejs
+
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    HTML 입니다.<p></p>
+
+
+
+    <% //javascript 코딩을 할수 있어요.   
+
+        for(var i=0; i<3; i++){
+
+    %>
+
+        안녕하세요 <%= i+1 %> <br>
+
+    <% } %>
+
+</body>
+
+</html>
+
+
+
+html에서 <%= %>은 출력
+
+    <%= m_name%> 
+
+var express = require('express')
+
+var app = express()
+
+
+
+app.set('view engin', 'ejs') //html template을 ejs로 사용하겠습니다.
+
+app.set('views', './views') //views 폴더를 ./views로 지정하겠습니다.
+
+app.get('/', (req, res) => {
+
+    res.send('Main page')
+
+})
+
+
+
+app.get('/ejs_test', (req, res)=>{
+
+    res.render('ejs_test.ejs', {
+
+        m_name : "홍길동",
+
+        m_age : "20"
+
+    })
+
+})
+
+var server = app.listen(5000, function() {
+
+    var host = server.address().address
+
+    var port = server.address().port
+
+    console.log("서버시작 http://%s%S",host, port)
+
+})
+
+확장 EJS Language support설치
+
+
+<input type="text" Value:name>
+req.query.name
+css 사용법
+app.use(express.static(__dirname + '/public'))
+
+app.js
+var express = require('express')
+var app = express()
+
+app.set('view engin', 'ejs') //html template을 ejs로 사용하겠습니다.
+app.set('views', './views') //views 폴더를 ./views로 지정하겠습니다.
+
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', (req, res) => {
+    res.render('free_board.ejs');
+})
+
+app.get('/result',(req, res) => {
+    res.render('free_board_result.ejs', {
+        name: req.query.name,
+        title: req.query.title,
+        content: req.query.content
+    });
+});
+
+var server = app.listen(5000, function() {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("서버시작 http://%s%s",host, port)
+})
+
+free_board.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/style1.css">
+</head>
+<body>
+    <h1>자유게시판 테스트</h1>
+    <form action ="/result" method="get">
+        이름 : <INPUT TYPE = "text" NAME="name" VALUE="홍길동"> <P></P>
+        제목 : <INPUT TYPE = "text" NAME="title" VALUE="제목입니다."> <P></P>
+        내용 : <textarea NAME = "content">내용입니다.</textarea> <p></p>
+    <INPUT TYPE="submit" value="전송">
+    </form>
+</body>
+</html>
+free_board_result.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판 결과</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>이름</td>
+            <td><%= name %></td>
+        </tr>
+        <tr>
+            <td>제목</td>
+            <td><%= title %></td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td><%= content %></td>
+        </tr>
+    </table>
+</body>
+</html>
+style1.css
+h1 {
+    background-color: green;
+}
+
+post로 받은 데이터를 받으려면 body-parser모듈이 필요하다.
+post로받은json데이터를 body에 저장하기 떄문에 이를 해석할 모듈이 필요한 것이다.
+npm install body-parser
+free_board.ejs
+    <link rel="stylesheet" type="text/css" href="/css/style1.css">
+app.js
+app.post('/result', function(req, res) {
+    res.render('free_board_result.ejs', {
+        name: req.body.name,
+        title: req.body.title,
+        content: req.body.content
+    });
+    console.log(res.render)
+    res.end(JSON.stringify(res.render))
+});
+
+선생님이 하신 post 코드부분
+app.post('/result', urlencodedParser, (req, res) => {
+    obj = {
+        name: req.body.name,
+        title: req.body.title,
+        content: req.body.content
+    }
+    
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+    //res.end(JSON.stringify(obj)); //json객체로 전달
+    
+    var html = `
+        <table border="1">
+            <tr>
+                <td>이름</td>
+                <td>${obj.name}</td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>${obj.title} </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>${obj.content} </td>
+            </tr>
+        </table>`;
+    
+    //res.end(`<h1>${obj.name}</h1>`);
+    res.end(html);   //html로 표현
+    console.log(obj)
+});
+
+https://www.postman.com/
+
+workspace -> + new collection -> ... -> add request
+restfull
+rest자원을 이름 으로 구분하여해당 자원의 상태를 주고받는 모든 것을 의미한다.
+
+OS
+const os = require('os')
+
+console.log(os.arch()) //cpu 아키텍처
+console.log(os.cpus())
+console.log(os.hostname())
+console.log(os.networkInterfaces())
+console.log(os.type())
+console.log(os.platform())
+console.log(os.release())
+console.log(os.homedir())
+console.log(os.tmpdir())
+console.log(os.tmpdir())
+console.log(os.totalmem())
+console.log(os.freemem())
+
+fs.readFile
+const fs = require('fs')
+
+fs.readFile('./abc.txt', 'utf-8', (err, data) =>{
+    if(err) {
+        throw err;
+    }console.log(data)
+})
+
+npm install json-server
