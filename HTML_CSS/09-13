@@ -1,0 +1,245 @@
+mysql설치
+
+교재 165p
+
+
+
+postgresql join같은 명령어를 사용할때 다른 db보다 더 빠르게 처리함
+
+
+
+mysql port는 3306을 사용함
+
+
+
+workbanch mysql 프론트 프로그램
+
+
+
+
+
+use world
+
+use sys // use를 사용해서 까만색이 되어야 사용할 수 있음
+
+
+
+show databases;
+
+show tables;
+
+
+
+edit preference 환경설정
+
+sqleditor safe update 업데이트나 딜리트가 되지않음
+
+AI Auto Increment
+
+
+
+교제 188에서 도구를 사용하여 테이블 생성
+
+명령어로 생성 할 겨우
+
+CREATE TABLE `dev`.`customers` (
+
+  `id` INT NOT NULL AUTO_INCREMENT,
+
+  `name` VARCHAR(45) NOT NULL,
+
+  `email` VARCHAR(45) NOT NULL,
+
+  `phone` VARCHAR(100) NOT NULL,
+
+  `address` VARCHAR(45) NULL,
+
+  PRIMARY KEY (`id`))
+
+COMMENT = '고객 정보입니다.';
+
+
+
+DESC customers;
+
+
+
+insert into customers(id, name, email, phone, address)
+
+values(1, 'John Doe', 'john@mail.com', '010-0000-0000', 'Andong');
+
+
+
+mysql01 폴더생성
+
+index.js
+
+sql.js
+
+npm init
+
+npm install express
+
+npm install mysql
+
+
+
+npm install dotenv
+
+.env //env 숨김폴더
+
+
+
+mysql
+
+
+
+웹서버의 절대 경로로 해킹을 시도 할 수 있다.
+
+
+
+하나의 라우트에서 next 오브젝트를 사용해서 2개 이상의 콜백 함수를 실행할 수 있다.
+
+
+
+const express = require('express')
+
+const { send } = require('process')
+
+const app = express()
+
+
+
+//Root
+
+app.get('/', function(req,res){
+
+    res.send('Main Page')
+
+})
+
+
+
+app.listen(3000, () => {
+
+    console.log("서버 스타트... 포트는 3000")
+
+})
+
+
+
+//route함수중 next()
+
+app.get('/example', function(req, res, next){
+
+    console.log("첫번째 콜백 함수")
+
+    next();
+
+}, function(req, res) {
+
+    console.log("두 번째 콜백 함수")
+
+    res.send("두 번째 콜백 함수")
+
+})
+
+
+
+const ex0 = function (req,res, next){
+
+    console.log("첫 번째 콜백함수 example2")
+
+    next()
+
+}
+
+const ex1 = function(req, res){
+
+    console.log("두번째 콜백 함수 example2")
+
+    res.send("두번째 콜백 함수 example2")
+
+}
+
+
+
+app.get('/example2', [ex0, ex1])
+
+
+
+const express = require('express')
+
+const { get } = require('http')
+
+const { send } = require('process')
+
+const app = express()
+
+
+
+//Root
+
+app.get('/', function(req,res){
+
+    res.send('Main Page')
+
+})
+
+
+
+app.listen(3000, () => {
+
+    console.log("서버 스타트... 포트는 3000")
+
+})
+
+
+
+app.route('/product')
+
+    .get(function(req,res){
+
+        //get코딩
+
+        res.send('GET을  호출 하였습니다.')
+
+    })
+
+    .post(function(req,res){
+
+        //post코딩
+
+        res.send('POST을  호출 하였습니다.')
+
+    })
+
+    .put(function(req, res){
+
+        //put 코딩
+
+        res.send('PUT을  호출 하였습니다.')
+
+    })
+
+    .delete(function(req, res){
+
+        //delete 코딩
+
+        res.send('DELETE을  호출 하였습니다.')
+
+    })
+
+
+
+브라우저에서는 알수없지만 POSTMAN에서 테스트 가능
+
+
+
+MVC 패턴
+
+SOA 디자인패턴
+
+
+
+expressrouter 길어지는 것 폴더를 따로 만들어서 경로 지정
