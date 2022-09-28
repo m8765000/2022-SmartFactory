@@ -1,0 +1,175 @@
+Flatten
+1차원 배열로 만들어준다.
+arr.flatten()
+
+Arange
+np.arange(start, end, step)
+np.arange(0,10,2)
+reshape도 가능
+np.arange(100,191,10).reshape(2,5)
+
+Zeros
+0으로 채워진 배열 생성 (0 행렬)
+np.zeros(5)
+2차원 배열
+np.zeros((5,1))
+
+Ones
+1으로 채워진 배열 생성 (1 행렬) 쓰는 이유 곱한다던지 생각보다 자주씀
+np.ones(shape, dtype)
+np.ones(shape=(5,), dtype=np.int8)
+np.ones((5),int)
+2차원 배열
+np.ones((2,3))
+
+Empty
+배열을 생성만 하고 값을 주지 않아 메모리에 저장되어있던 기존 값이 저장될 수 있음
+np.empty(shape, dtype)
+np.empty((2,3))
+
+Zeros_like / Ones_like / Empty_like
+입력 받은 배열과 같은 shape, dtype의 배열 생성
+matrix = np.arange(24).reshape(4,6)
+np.zeros_like(matrix)
+
+Identity
+단위 행렬-주대각선의 값이 1이고 나머지는 정사각 행렬 
+np.identity(size,dtype)
+
+Eye
+대각선이 1로 채워지는 행렬
+대각선의 시작 위치 지정 가능
+np.eye(size, M ,k ,dtype)
+np.eye(5, dtype = np.int8)
+k : 대각선의 시작위치를 입력 받은 수 만큼 오른쪽으로 이동
+M : 보여지는 열의 개수를 지정
+
+Full
+입력 값으로 채워지는 행렬
+np.full(shape, value)
+np.full((2,5),3) ## np.full((5,4), 'a)'
+
+Random.randint
+주어진 범위 안의 랜덤한 값을 뽑는 함수
+np.random.randit(range)
+print(np.random.randit(range)
+np.random.randint(1,20)
+
+Random.rand
+랜덤한 값으로 채워지는 배열
+Random.randn
+랜덤한 값으로 채워지는 배열
+평균0, 표준편차 1의 가우시안 표준정규분포 난수를 shape 형태의 배열로 생성
+np.random.randn(shape)
+np.random.randn(3)
+
+sum 합
+ndarray.sum()
+2차월 배열 합
+matrix.sum(axis =0) 열을 더해 행으로 표현 ## 수직으로 연산
+matrix.sum(axis =1) 좌우를 더해 한줄로 표현 ## 열끼리 더하기 좌우
+두가지 방식중 선택해서 연산
+arr.sum(axis=1)
+np.sum(arr, axis=1)
+
+배열 정렬
+#리스트 내 포문
+[ np.random.randint(1,101) for n in range(5) ]
+np.random.randint(1,101)
+[i if i % 2 == 0 else 0 for i in range(5)]
+
+vector = np.random.randint(1,101,5)
+np.sort(vector) //오름차순
+np.sort(vector)[::-1] //내림차순 슬라이싱
+
+np.sort(matrix) #열 기준으로 정렬 좌우 비교
+np.sort(matrix, axis = 0) #행 기준으로 정렬 위아래 비교
+
+Vstack 배열합치기
+2개 이상의 배열을 수직으로 합체
+열과 행이 같아야한다.
+np.vstack([arr1, arr2])
+Hstack 수평으로 합체
+
+Concateate 배열합치기
+2개 이상의 배열을 수직, 수평으로 합체
+np.concatenate(arr1, arr2, axis)
+
+#다음 matrix와 vector를 하나의 배열로 합쳐보세요
+matrix = np.array([[1,2,3],[4,5,6]])
+vector = np.array([7,8,9]).reshape(1,3)
+
+np.concatenate([matrix, vector], axis=0)
+np.vstack([matrix, vector]) #concatenate를 쓸수없을때 사용
+
+행/열 바꾸기 transpose
+행과 열의 뒤집어 주는 함수
+
+matrix3 = np.array([[5,6]])
+matrix.transpose()
+
+Transpose + Concatenate
+형태를 바꿔 서로 결합할 수 없는 배열을 합칠 수 있다.
+
+np.argmax(arr1, axis =0)
+수직끼리 비교해서 큰값을 가져옴
+
+Fancy 인덱스 배열 인덱싱
+a = np.arange(1,11)
+b = np.array([3,4,5,6])
+print(a) #[12345678910]
+print(b) #[3456]
+
+print(a[b])
+[4567]
+
+배열연산
+arr1 = np.array([1,2,3])
+arr2 = np.array([4,5,6])
+
+arr1 - arr2
+브로드 캐스트
+# arr1 + np.ones_like[arr1]
+arr1 + 1
+
+arr1 = np.array([[1,2,3],[4,5,6]])
+arr3 = np.array([[1],[2]])
+arr1 + arr3
+
+np.ones((5,5)) * 5 # np.full((5,5),5.)
+같은 행 or 열 벡터 브로드캐스팅 연산
+arr1 = np.arange(1, 10).reshape(3,3)
+arr2 = np.arange(11, 14).reshape(1,3)
+
+행렬연산 곱셈 shape을 유지해야한다. 행 or 열
+np.dot(arr1, arr2)
+arr1.dot(arr2)
+arr1 @ arr2
+
+파일 처리 
+파일 저장 tofile
+filepath = './n.npy'
+n.tofile(filepath)
+
+파일 불러오기 fromfile
+m = np.fromfile('n.npy')
+m
+불러왔을때 벡터의 값 순서가 바뀜 값은 바뀌지 않음
+
+파일 저장, 불러오기 ( np.save, np.load)
+np.save('./n1.npy', n) # 바이너리 형식으로 저장
+주의해야할 점
+m = np.load('n.npy') tofile로 저장했기 때문에 fromfile외에는 로드할수없다. 저장형식이 다르기 때문
+
+txt 파일저장
+np.savetxt('n.txt',n)
+np.loadtxt('n.txt')
+파일을 여는게 불편한 바이너리를 쓰는 이유 데이터용량을 적게 쓰기 때문
+
+csv 파일 저장 불러오기
+np.savetxt('n.csv',n)
+np.loadtxt('n.csv')
+
+np.savetxt('n.csv', n, delimiter=',') 구분자
+
+np.argsort(arr1)
