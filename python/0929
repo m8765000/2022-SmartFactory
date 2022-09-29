@@ -1,0 +1,86 @@
+#중복 제거후 확인 unique
+print(np.unique(data[:,0])
+
+np.argsort([1,2,5,6,3,0,0,10))
+array([5, 6, 0, 1, 4, 2, 3, 7], dtype=int64)
+
+#데이터의 크기순 정렬
+data[:,1].argsort()
+arr[arr_sort_index]
+#fancy index
+data[data[:,1].argsort()]
+
+data = np.loadtxt('ex2_전년대비_시도별_교통사망사고.csv',delimiter=',',dtype=str)
+data[:5,:]
+
+skiprows를 써서 행(문자열)을 제거하고 데이터를 가져올수 있음
+data = np.loadtxt('ex2_전년대비_시도별_교통사망사고.csv',delimiter=',',skiprows=1,dtype=str)
+
+판다스 시작하기
+import pandas as pd
+df = pd.read_csv('gapminder.tsv',sep='\t')
+df
+판다스에서 1차원 series  2차원dataframe
+데이터 집합 불러오기
+df.head(n) 데이터 프레임의 데이터를 확인하는 용도로 사용
+가장 앞에있는 5개의 행을 출력 n숫자 지정시 갯수만큼 출력
+df.tail(n) 밑에서 부터 값을 가져옴
+
+df.index 
+RangeIndex(start=0, stop=1704, step=1)
+pandas에서는 내가원하는 리스트를 묶어서 인덱스할수있다.
+
+하나의 컬럼에는 하나의 자료형을 가진다.
+
+PANDAS에서는 object는 string 자료형
+int64 int float64 float datatime64 datetime
+
+딕셔너리와 유사하다 키워드를 찾는 것 컬럼을 찾음
+loc는 인덱스로 기준으로 행데이터 추출 (문자)
+iloc(int loc) 행 번호를 기준으로 행데이터 추출
+
+df.loc[0 : 5] 5인덱스를 포함해서 출력이됨
+0~5인덱스 총 6개의 인덱스 출력
+df.loc[5 : 0 : -1]
+
+df.loc[ [10,100,1000] , ['country','continent','year']]
+df.groupby('year')
+df['year'].unique()
+묶여있는 상태를 보여줌
+.mean() 평균
+df.groupby('continent').nunique() continent의 목록의 개수를 출력 중복제거
+
+그래프그리기
+year_life_expectancy = df.groupby('year')['lifeExp'].mean()
+year_life_expectancy #평균계산
+
+%matplotlib inline
+import matplotlib.pyplot as plt
+year_life_expectancy.plot()
+처음값은 x축 2번째 값은 y축의 값으로 정해져 그래프가 생성됨
+
+나만의 데이터 만들기
+Series() 메소드에 리스트를 전달하여 시리즈 생성
+s = pd.Series(['Wes Mcinney', 'creator of pandas'])
+s
+
+index인자에 문자열을 리스트로 담아서 전달 가능
+s = pd.Series(['Wes Mcinney', 'creator of pandas'],
+            index=['Person','Who'])
+s
+name = ['김', '최', '박']
+age = [10, 20, 30]
+pd.DataFrame({'Name' : name, 'Age' : age})
+딕셔너리만으로는 생성불가능 딕셔너리 값이 1차원 배열값일 경우에만 생성가능
+df = pd.read_csv('scientists.csv')
+df
+df.set_index('Name', inplace=True) #df.set을해서 Name으로 덮어씌움
+
+df.loc['William Gosset'] 인덱스의 값을 출력
+시리즈 다루기
+길이가 서로 다른 벡터를 연산하는 경우 같은 인덱스의 값만 계산
+ages + pd.Series([1, 100])
+0,1 인덱스만 계산되고 누락값 으로 처리(NaN 값이 없음을 의미)
+
+ages + rev_ages 는 ages * 2 값과 같다
+동일한 인덱스끼리 연산 처리했기 때문
