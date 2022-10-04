@@ -1,0 +1,116 @@
+weather = pd.read_csv ('data/data/weather.csv')
+print(weather.shape)
+print(weather.columns)
+print(weather.iloc [:5, :11])
+
+melt() 사용 열데이터를 행 데이터로
+weather_melt = pd.melt (weather,
+id_vars=['id','year','month','element'],
+var_name ='day',value_name ='temp')
+weather_melt [100:110]
+
+d를 빈데이터로 
+weather_melt.day.str.replace('d','').astype(int)
+
+pivot_table() 사용 행데이터를 열 데이터로
+weather_melt.pivot_table(index=['id','year','month','day'],
+                        columns = 'element', values='temp')
+
+기상 데이터의 여러 열을 하나로 정리하기
+인덱스 초기화
+weather_tiny_flat = weather_tiny.reset_index
+weather_tiny_flat
+
+빌보드 차트 데이터의 중복 데이터 처리하기 정규화
+
+bill_long = pd.melt(billboard, 
+        id_vars = ['year','artist', 'track', 'time','date.entered'],
+        var_name='week', value_name='rating')
+
+billboard_songs = bill_long[['year','artist', 'track', 'time']]
+중복데이터 제거 drop_duplicates()
+billboard_songs = billboard_songs.drop_duplicates()
+billboard_songs.shape
+
+순번 id 추가
+billboard_songs['id'] = range(len (billboard_songs))
+billboard_songs.head(10)
+
+대용량 데이터 처리하기
+뉴욕 택시 데이터 가져오기
+import glob
+
+filepaths =glob.glob('taxi/uber-raw-data-*')
+
+apply 메소드 사용하기
+import pandas as pd
+df = pd.DataFrame ({'a' : [10, 20,30],'b':[20,30,40]})
+print(df)
+
+def my_sq(x):
+    return x ** 2
+
+def my_exp(x, n):
+    return x ** n
+
+인자 2개일때 디폴트 없으면 2개넣어야함
+
+람다
+(lambda x: x ** 2)(10)
+df['a'].apply(lambda x, n, m: x **n, n=2,m=1)
+
+데이터 프레임에 apply 메소드 사용 열방향
+df.apply(lambda x: print(x), axis = 0)
+
+df['c'] = df.apply(lambda x : x[0] * x[1] , axis=1)
+df['c']
+
+타이타닉호 침몰 시 생존자 데이터 가져오기
+import seaborn as sns
+titanic = sns.load_dataset ("titanic")
+titanic.info()
+
+데이터 프레임의 누락값을 처리한 다음 apply 메소드 사용하기
+누락값의 개수를 확인하는 함수 작성 및 적용
+import numpy as np
+def count_missing(vec):
+    null_vec = pd.isnull(vec)
+    null_count = np.sum(null_vec)
+    return null_count
+cmis_col = titanic.apply(count_missing)
+print(cmis_col)
+
+누락값의 비율을 계산하는 함수 작성 및 적용
+def prop_missing(vec):
+    num = count_missing(vec)
+    dem = vec.size
+    return num / dem # 퍼센테이지로 보고 싶으면 round(num / dem * 100,2) + '%'
+pmis_col = titanic.apply(prop_missing)
+print(pmis_col)
+
+apply 시리즈에 함수를 적용할수있다.
+
+사용자 함수 적용 agg() apply와 유사
+입력받은 열의 평균값을 구하는 사용자 함수
+
+def my_mean(values):
+    n = len (values)
+    sum = 0
+    for value in values:
+        sum += value
+    return sum / n
+
+agg_my_mean = df.groupby('year').lifeExp.agg(my_mean)
+print(agg_my_mean)
+
+datetime 오브젝트
+from datetime import datetime
+now1 = datetime.now()
+now1
+now2 = datetime.now()
+now2
+Date 열의 자료형을 datetime오브젝트로 변환
+ebola['date_dt'] = pd.to_datetime(ebola['Date'])
+ebola.info()
+ebola.head(2)
+
