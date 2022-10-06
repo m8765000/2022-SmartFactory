@@ -1,0 +1,95 @@
+문제에따라 예측, 분류, 군집
+분류는 정답지를 주고 나누는것
+군집은 정답을 주지않고 스스로 나누는것
+
+머신러닝 VS 딥러닝
+인간이 데이터에 대한 결과값을 미리 알려주어야하고 목표치에 가까운 결과 값을 특징을 미리 정의해야한다.
+
+딥러닝
+인간의 신경망이 뉴련의 작동원리를 모방하여 복잡하고 방대한 데이터로부터 결과값을 추출하는 원리이다.
+
+머신러닝 종류
+지도학습  : 문제와 정답을 알려주고 공부하는 방법 예측 분류
+비지도학습 : 답을 가르쳐주지않고 공부하는 방법 연관 규칙 군집
+강화학습 : 보상을 통해 상은 최대화 벌은 최소화하는 방향으로 행위를 강화하는 학습 보상
+
+사이킷 런
+파이썬에서 머신러닝학습을 위한 라이브러리이다.
+
+pip install scikit-learn
+print(sklearn.__version__)
+
+import sklearn
+
+from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+import pandas as pd
+iris = load_iris()
+iris.data  # 데이터(독립변수, 피처)
+iris.target # 데이터 (종속변수, 타겟, 레이블)
+iris.target_names # 타겟의 이름 - 사자, 고양이 ,강아지
+iris.feature_names # 컬럼의 이름
+df = pd.DataFrame(iris.data, columns = iris.feature_names)
+s = pd.Series(iris.target)
+
+df['target'] = s
+df
+
+붓꽃 품종 분류하기
+학습, 테스트 데이터 나누기
+X_train, X_test, y_train, y_test = train_test_split(iris_data,
+iris_label, test_size = 0.2, random_state = 11)
+print(X_train[0])
+
+
+X_train, Y_train 학습을 할때
+X_test 예측을 할때
+Y_test 평가를 할때
+
+knn.fit() #학습
+knn.predict() # 예측
+
+최근접 이웃 K-Neighbors
+데이터의 산포도 기준 가까운 데이터를 같은분류로 판단
+결정트리
+ML 알고리즘 중 직관적으로 이해하기 쉬운 알고리즘
+트리 기반의 분류 규칙을 만든다.
+if/else 기반으로 데이터를 분류하여 답을 찾아낸다
+
+import pandas as pd
+from sklearn.datasets import load_wine
+
+wine = load_wine()
+wine.target_names
+
+df = pd.DataFrame(wine.data, columns=wine.feature_names)
+df['class'] = wine.target
+df.info()
+
+from sklearn.model_selection import train_test_split
+
+X_data = df.iloc[:, :-1]
+y_data = df.iloc[:, -1]
+
+X_train, X_test, y_train, y_test = train_test_split(X_data,
+y_data, test_size=0.2 , random_state= 0)
+print(X_train.shape, X_test.shape)
+print(y_train.shape, y_test.shape)
+
+from sklearn.tree import DecisionTreeClassifier
+
+dt_clf = DecisionTreeClassifier()
+dt_clf.fit(X_train, y_train)
+
+from sklearn.metrics import accuracy_score
+
+accuracy_score(y_test , pred)
+
+앙상블 학습
+분류기를 생성하고 예측을 결합함으로써 보다 정확한 예측을 도출하는 법
+보팅 배깅 부스팅
+보팅 한 데이터 셋에서 다른 알고리즘을 사용
+배깅 한 분류기로 서로 다른 데이터 샘플을 학습
+부스팅 순차적으로 학습-예측하면서 오류를 개선해가며 가중치를 주는 방식
+
