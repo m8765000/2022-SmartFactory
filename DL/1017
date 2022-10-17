@@ -1,0 +1,95 @@
+사이킷 런
+
+ai > ml > dl
+
+강화학습 비지도 학습 지도 학습
+
+지도 학습 분류 답이 2개중 하나,  회귀 답이 하나 나옴
+
+보스턴 다이나믹스
+
+DNN 레이어층이 2개이상 딥러닝 은닉층
+
+선형대수 CNN 합성곱 신경망 시각세포 원리 이미지를 특정한 영역별로 추출 학습
+이미지 영상 분류 인식 유용
+
+RNN 순차적인 정보 처리 
+자동 완성 기능, 은성인식 기능, 번역 기능, 챗봇, 자막 , 창작 등
+
+Domain knowledge
+
+https://teachablemachine.withgoogle.com/
+
+학습횟수 에포크
+
+배치 크기 학습 단위 데이터를 나눔
+
+학습률 선형 그래프 종속변수 (입력값에 따라 바뀜) 
+그래프에서 맞는 값(함수)을 찾아 내는것 머신러닝
+오차값 계산 경사가 학습률에 따라 정해짐
+
+cmder
+
+
+    local prompt_lambSymbol = "$"
+
+122    -- Symbol displayed in the new line below the prompt.
+    if not prompt_lambSymbol then
+      --prompt_lambSymbol = "λ
+      prompt_lambSymbol = "$"
+
+setting 
+startup
+Tasks
+cmd::Cmder 
+startup dir
+
+윈도우에서 돌아가는 linux 애뮬레이터
+
+conda 가상환경 만들기
+conda create --name cv_env python=3.9
+conda activate cv_env
+
+pip install jupyterlab
+
+가상환경에서 jupyter lab
+
+conda install ipykernal
+
+conda list 와 pip list 따로 관리
+음과 양의 상관관계
+양의 상관계를 사용할때
+
+# 데이터가 없다면 다운로드
+!git clone https://github.com/taehojo/data.git
+
+은닉층 relu 출력층 sigmoid
+
+엔트로피 불순도 어지러져있는 정도
+
+차이가 적을 수록 정답에 가까움
+
+다중분류 3 softmax
+
+categirucal_crossentropy , optimizer
+metrics = ['accuracy']
+
+선형 비선형 볼수있는것 pairplot
+
+독립변수 종속변수
+
+학습셋 테스트셋
+
+학습셋 검증셋
+conda install scikit-learn
+
+logistic regretion 기준을두고 기준값위 아래에 따라 값을 정함 sigmoid 함수
+
+설정값
+binary_crossentropy adam 이진 분류 
+accuracy말고 다른것들도있다.
+
+conda 로 설치안되면 pip
+
+ verbose는 학습의 진행 상황을 보여줄 것인지 지정을 하는데 verbose를 1로 세팅하면 학습이 되는 모습을 볼 수 있다.
+
