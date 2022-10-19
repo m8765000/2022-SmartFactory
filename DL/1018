@@ -1,0 +1,197 @@
+conda activate cv_env
+
+이미지 데이터 처리 CNN 알고리즘
+
+텐서플로 학습 
+https://www.tensorflow.org/overview?hl=ko
+
+Dense(30, input_dim = 12, activation ='relu'))
+독립변수(노드) 12개 출력30개
+하나의 노드 입력값 12개 바이어스값1개 y햇 - y => 에러 = 코스트 값
+
+하나의 노드에 최적의 값이 하나씩 나옴
+각노드에대한 층에다한 평균값이 나온다 => 에러가 점점 줄어든다
+히든레이어 입력과 아웃풋 사이있는것
+
+마지막 sigmoid 이진 분류 화이트와인인지, 레드와인인지
+
+옵티마이저 웨이트값을 조절 
+한방향으로 진행하는 것 피드포워딩
+
+은닉층에서의 처리
+x,와 y w와 b를 가지고있다.  w는 하나가아니다 x0~x11 
+wx + b => 모델 핏의 결과물 예측값 y햇(y에서 ^ 씌운 모양)이 나온다.
+
+경사강도
+
+출력층 이진분류 다중분류 회귀(예외적인 로지스틱 회귀)
+어떤값을 예측할때 연속되어있는 시리얼데이터 회귀
+
+이진분류 마지막 출력 sigmoid 함수 사용 (출력활성함수) binary_crossentropy(손실함수)
+다중분류 마지막 출력 softmax 함수 가중치 합이 1, categorial_crossentropy(손실함수) 가장높은걸 1나머지 0으로셋팅
+회귀(Regression) MSE 민스케얼드에러 y에 제곱해서 뭐시기 계산해서 나온거 뒤에 마이너스가 
+y햇 - y할때 상쇄가 되기 때문에 제곱을한다.(손실함수)
+
+활성함수 은닉층에서 한노드 
+wx + b 출력 값 비선형성 미분을 시킴 => 활성함수로 만든다.
+한곡선에서 기울기값을 구하는 것 미분
+
+시그마 wx + b 바로 입력을 하는게 아니라 활성함수과정을 거친다.
+베니싱 그레디언트(기울기가 휘어져있는 부분)가 해결된 ReLU (기울기가 대각선으로 증가함)
+ReLU Sigmoid Tanh(하이퍼블리 탄젠트) Leaky ReLU 수학공식 이름
+
+최적화(옵티마이저) adam 키워드
+손실함수를 기반으로 최적의 weight를 어떻게 업데이트 할지 결정하는 알고리즘
+경사하강법과 오차역전파 알고리즘을 이용해 weight를 최적화 함
+
+AUC 분류 성능의 척도 
+
+데이터 셋을 한번 학습하는 횟수 에포크
+배치 에포크의 데이터를 잘라서 학습하는 것
+
+Data Set(1000) 개수 Batch size가 10개면 Data size는 100 배치사이즈10번하면 => epoch (1)
+Iteration(step) 하나의 batch가 한번 학습이 이뤄짐을 의미함 
+Data Set, Batch size, epoch Iteration(step)
+Data Set이 480개
+batch size 16개
+epochs 5
+mini-batch는 30개
+1epoch : 몇번의 iteration 30번 일어남
+epochs: 5 iteration 150번 일어남
+
+머신 러닝 모델은 우리가 넣은 데이터에 대해서 최적의 w값을 도출해내는 것
+y햇 예측값 y는 실제값(정답값) 
+w와b값으로 학습을 진행 후 데이터를 넣어 예측값  y햇을  찾아내는것 가설함수
+
+lost function = cost function
+
+가설함수 H(x) = y햇
+H(x) = W * X + b 에서 임의의 w 와 b값을 넣어 y예측값 (y햇)을 만들어
+실제값y와 뺸값을 손실값이 나옴 이값이 제일작은것이 정확도가 높은것이 된다.
+
+손실함수에 제곱을 하는 이유 손실값이 -1 +1 0일때 합하면 0인데 손실값이 있는데
+0이나오면 안되기 때문에 제곱을 하는 것
+머신러닝의 성능을 높이는 방법은? 오차를 최소화 하는것
+디센트
+곡선 2차함수가 나온이유 가중치(w)를 제곱했기 때문에
+
+cost와 w의 곡선함수가 나온다. cost는 에러
+0에 근사한 값을 찾아가는것 => 경사하강
+
+경사하강 할때 좌표값을 바꾸는 수치 => 학습률
+학습률이 중요한 이유 w증가값에 대한 cost의 값 그래프가 이상한 모양일때
+좌표를 찍어줬을때 0값이 나오면 ㄷ뒤에 나오는 w값을 계산을 제대로 하지못하고 오차값이 발생한다.
+잘못주면 수렴되지않고 발산가능성도 존재
+global minumum 전체의 최소값
+하나의 좌표에서 나오는 최소값 local minimum (minima)
+최적화 정의 gradient Decent
+파라미터를 w로 설명 
+Batch Gradient Descent 한꺼번에 배치 처리
+Stochastic Gradient Descent 한스텝씩 처리 상징성이 부족해짐
+Mini-Batch Gradient Descent 절충안
+일정 회수 이상 반복할 경우 트레이닝 에러는 작아지지만 검증에러는 커지는 오버피팅에 빠지게됨
+모델의 표현력이 부족해서 트레이닝 데이터도 제대로 예측하지 못하는 상황 언더피팅
+
+로지스틱 회귀  (이중 분류)
+회귀이지만 위에는 곡선이생겨 근사값은 아에 1, 0으로 만들어버림 sigmoid
+
+소프트맥스 회귀 (다중 분류)
+평균값으로 확신해 판단 총합은 1
+
+크로스 엔트로피 
+소프트맥스 회귀를 비롯한 문제에는 크로스엔트로피 손실 함수를 사용
+엔트로피는 불확실성을 의미 확률이 작을 수록 일어날수있는 경우의 수가 많아짐
+예측값이 정답에 가까우면 0으로 수렴 정답과 틀리면 무한대로 말산
+
+label 인코딩으로 잘못된 학습을 할수도있어 => 원핫인코딩 고유값에 해당하는컬럼에만 1표시 나머지는 0
+이진 코드로 범주값을 표기
+
+텐서 => 차원 
+0차원 = 스칼라 (변수)/1차원 =  벡터(리스트, numpy, Series, Data Frame)/2차원 = axies =0열, 1=행/3차원 = axies=2 텐서
+
+Maxpooling 
+Dropout 과적합을 막기위해 사용
+Flatten 벡터
+
+Conv2D() 컨벌러젼 
+이미지 데이터 종류
+Vector , Bitmap
+CNN은 Bitmap을 학습
+CNN 합성곱 convolution Neural Network
+
+Normalization 0과1로 바꾸어주는것 브로드캐스팅
+# X_test 데이터도 1차원 변경, 0 ~ 1 정규화 
+
+X_test = X_test.reshape(X_test.shape[0], 784).astype('float64') / 255
+
+
+#(학습데이터(X, y)), (테스트 데이터(X, y)) 순으로 선언
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
+X_train_shape, y_train_shape // 3차원 , 시리즈
+((60000, 28, 28), (60000, ))
+
+plt.imshow(X_train[1], cmap='Greys') Greyscale로 볼수있음 흑백
+
+reshape로 축소를해도 데이터에 대한 특징은 변하지 않는다,
+
+전처리 원핫 인코딩 넘어가면 
+
+원핫인코딩을 통해 5에서 => [0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
+
+model = Sequential()
+model.add(Dense(512, input_dim = 784, activation = 'relu'))
+ANN은 2차원이 아니라 1차원으로 해야함 그래서 1차원으로 바꿈
+
+확인 model.summary()
+
+AUC가 1에 가까울수록 좋다
+
+# 값의 반전, 1->0으로 변경
+test_data = ((image / 255.) - 1) * -1 흰색이기 때문에 255가 된다.
+테스트와 동일한 것으로 만들어주기 위해 -1 * -1을함
+결과 틀림 => 과적합에 빠질수있다. 그래서 CNN 알고리즘
+
+# mnist 데이터 CNN 알고리즘 적용
+X_train = X_train.reshape(X_train.shape[0], 28, 28, 1).astype('float32') / 255
+
+CNN 모델 정의
+CNN_model.add(Conv2D(32, kernel_size=(3, 3), input_shape=(28, 28, 1), activation='relu')) # 32x3x3+32=320
+Conv2D 벡터로바꿔줄필요없음
+kernal_size =(3,3) 블러같은 느낌으로 필터 지정
+칼라면 input_shape(28,28,1)에서 1 => rgb 3으로 바꿈
+
+커널이 타고 도는것을 슬라이딩 윈도
+한스텝에서 합성곱 =2 피쳐맵으로 나온다.
+4x4 입력 2x2 CNN 적용 1칸씩 이동 3x3 feature맵이 출력됨
+CNN_model.add(Conv2D(32(커널수), kernel_size=(3, 3)(피쳐맵의 크기를 정함), input_shape=(28, 28, 1), activation='relu')) # 32x3x3+32=320
+피쳐맵 32개 들어옴
+CNN_model.add(Conv2D(64, (4,4), activation='relu'))  # parameter 갯수 : 64x4x4x32+64 =32832 
+피쳐맵 64개 
+
+맥스풀링은 컨볼루션 결과를 풀링을 통해서 차원을 축소함
+Maxpooling 후 dropout
+Max pooling , average pooling, min pooling
+
+드롭아웃 (과적합 방지)
+은닉층에 배치된 노드 중 일부를 임의로 삭제하는 것(과적합 회피 효과)
+어떤 입력에 대해서 그다음 노드와의 연결을 끊음
+
+플랫튼
+합성곱 연산후 맥스풀링 드롭아웃 후 아웃풋하기전에 flatten을 해줌 다차원 => 1D로 변환
+은닉층은 아님
+
+CNN_model.add(MaxPooling2D(pool_size=(2, 2)))
+CNN_model.add(Dropout(0.25))
+CNN_model.add(Flatten())
+처리순서가 이렇게 되어야 함
+
+#y_train = to_categorical(y_train) onehot
+#y_test = to_categorical(y_test)
+
+y를 원핫 인코딩으로 변환하기 않고 학습시킬때 사용
+CNN_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+categorical_crossentropy를 sparse_categorical_crossentropy로 하면 
+원핫인코딩을 해준다.
+CNN_model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+변환하고 학습시킬떄 사용
+
