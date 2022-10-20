@@ -1,0 +1,88 @@
+디자인패턴 책
+GoF의 디자인 패턴 
+http://www.yes24.com/Product/Goods/17525598
+클린 아키텍처
+http://www.yes24.com/Product/Goods/77283734
+리팩토링
+http://www.yes24.com/Product/Goods/7951038
+
+개념 정의 위키
+https://ko.wikipedia.org/wiki/SOLID_(%EA%B0%9D%EC%B2%B4_%EC%A7%80%ED%96%A5_%EC%84%A4%EA%B3%84)
+
+c# solid
+https://forum.dotnetdev.kr/t/c-net-core/1294
+
+정답이 아니라 설계를 하는것
+solid는 정답이 아니다. 설계 기준 이렇게 하는것이 어떠하냐는 관점에서 좋은것같다
+앞으로 확장되고 여러사람이 사용할 경우에 solid가 정답이 될수도있다.
+
+solid 학습 예시 git
+https://github.com/HaSense/solid-design-principles-in-c-sharp
+
+SRP 단일 책임원칙
+하나의 클래스에서 여러 클래스로 분리하는것
+스코프
+
+대문자로 시작하면 보통 클래스이다.
+
+        private MailService _mailServiceClient //has a 관계
+
+OCP 개방 폐쇄 원칙
+확장에는 열려있으나 변경에는 닫혀있어야 한다. 확장이 쉬워야한다.
+interface를 통해 확장이 가능해진다. 동일한 이름의 함수를 줄수있다.
+
+LSP 리스코브 치환 법칙
+상위의 클래스를 만들어주면 좋다. => 추상클래스를 만들어 주는것과 같다.
+
+UML 디자인 SE visual paradigm 프로그램이 무겁다는 단점으로
+UML 디자인 학습으로 프로그램 SratUML 사용
+
+디자인 학습은 리펙토링이 잘되어있는 코드를 보면서 학습
+
+        static void Main(string[] args)
+        {
+            //SRP문제
+            //비추천
+            BadOrderService badOrderService = new BadOrderService();
+            badOrderService.CreateOrder();
+
+            //추천
+            GoodOrderService goodOrderService = new GoodOrderService();
+            goodOrderService.CreateOrder();
+
+            GoodPaymentService goodPaymentService = new GoodPaymentService();
+            goodPaymentService.MakePayment();
+        }
+
+CreateOrder(in string OrderDeatils): String
+
+클린코드 <-> 디자인패턴 상호보완적 객체지향을 서로 보완한다.
+좋은 디자인 패턴을 만들수있다는 것은 나쁜 디자인 패턴도 만들수 있어야 한다. 그래야 
+나쁜디자인이 어떤 것인지 파악하고 좋은 디자인을 설계할 수 있다.
+
+디자인 패턴과 리펙토링사이트
+https://refactoring.guru/
+
+abstract 하면 new로 만드는게 아니고 오버라이드해서 사용 하지만 무조건 구현해야함
+public class ExcelReportGenerationHelper : ReportGenerationHelper 인터페이스는 구현받음
+
+OCP >= strategy pattern
+    // Get/Set Strategy
+    public IBillingStrategy Strategy { get; set; } has a 관계 aggreation
+
+다자인패턴에서 main을 먼저보면 안된다.
+aggreation 하면 모든것이 포함되어야 함 
+https://en.wikipedia.org/wiki/Strategy_pattern
+행동하는것은 main 
+인터페이스에서 패턴을 만든다 
+Context는 인터페이스를 has a 관계로 포함한다.(aggreation) public IBillingStrategy Strategy{ get; set; }
+생성자가 바뀔일 이없음 this.Strategy = strategy;
+
+ISP 인터페이스를 여러개로 분리하는게 낫다. 보기 흉할수도있지만 더 낫다.
+DIP 의존 역전 원칙 자주 변경되는 구체 클래스에 의존하면 안된다.
+자동차는 스노우타이어를 가진다 스노우 타이어에 문제가 생기면 
+자동차에 있는 스노우 타이어의 멤버변수에 문제가 생겨 자동차에 문제가 생긴다
+그래서 반대로 의존관계를 역전시켜서 디자인 한다. 여기서 인터페이스 생겼다.
+
+solid 로버트 c 마틴
+단일 책임, 개방 폐쇄, 리스코프 치환, 인터페이스 분리, 의존관계 역전
