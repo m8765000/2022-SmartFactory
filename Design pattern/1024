@@ -1,0 +1,90 @@
+Bloters
+https://refactoring.guru/replace-temp-with-query
+
+유스케이스 클래스 객체 시퀀스 4개 수업시간에 중요하다고생각해서 했음
+나머지5개 총 9개
+
+클래스다이어그램
+요구사항 수집 분석 설계
+
+클래스 다이어그램
+관계의 종류 연관, 집합, 일반화, 의존
+연관 관계 has a (association)
+집합 관계 한 클래스의 객체가 다른 클래스의 객체를 부분으로 서 포함 (aggregation)
+일반화 관계 클래스 간의 계승을 통한 개념의 일반화 (generalization)
+의존 한 클래스의 변경이 다른 클래스의 영향을 미칠 수 있다. (dependency)
+클래스간의 의존이 많을 수록 제거해야 한다. 강연결성을 줄이는것or 제거
+
+시퀀스 다이어그램
+시간순서상 동작하는 과정을 보여주는 다이어그램 세세한 메소드
+uml의 단점 숲은 잘보이는데 나무(로직)를 그리는게 힘들다.
+
+협력 다이어그램
+상호작용을 표현 
+시퀀스와의 차이 협력은 객체간의 관계를 표현
+
+상태차트 다이어그램
+동작하는 상태를 표현  전이와 이벤트
+
+액티비티 다이어그램
+활동의 흐름을 표현 시퀀스와 차이점 시간이 포함되어있지 않음
+순서도와 비슷함
+
+다이어그램의 필요성 사용자,투자자는 개발하는 과정을 볼수 없기때문에 필요
+일을위한 일이 된다는 문제점
+
+컴포넌트 다이어그램
+다른 다이어그램보다 필요성이 있을수 있다.
+패키지를 간의 의존관계 표현
+
+배치 다이어그램
+물리적인 장치 배치 표현 컴퓨터와 그들 사이의 통신 방법 표현
+
+4+1 관점/
+유스케이스, 설계, 프로세스, 구현, 배치 관점
+
+유스케이스 분석 기법
+경계 클래수, 제어 클래스, 실체 클래스
+
+headfirst -> refectoring guru -> dofactory
+https://github.com/d0pare/design-patterns/tree/master/src
+https://refactoring.guru/ko/help-ukraine
+https://www.dofactory.com/net/builder-design-pattern
+
+팩토리 메서드
+OCP와 관련 확장에는 열려있음 ex)피자
+
+namespace FactoryMethodPizza
+{
+    public class PizzaStore
+    {
+        private readonly SimplePizzaFactory _factory; //레퍼런스 만듬
+
+        public PizzaStore(SimplePizzaFactory factory)
+        {
+            _factory = factory;//call by reference
+        }
+
+        public Pizza OrderPizza(string type)
+        {
+            Pizza pizza = _factory.CreatePizza(type);
+
+            pizza.Prepare();
+            pizza.Bake();
+            pizza.Cut();
+            pizza.Box();
+
+            return pizza;
+        }
+    }
+}
+
+알고리즘 풀이도 중요하지만 아키텍처 설계또한 중요하다.
+
+추상팩토리패턴
+팩토리 메소드 패턴과 추상 팩토리 패턴은 다르다.
+
+왼쪽은 팩토리 위 목록은 프로덕트로 구분됨 (표형태)
+
+
+
