@@ -1,0 +1,55 @@
+mes는 scada의 확장판
+
+옵저버 패턴 중요
+관찰하고싶은 주제의 업데이트가 발생하면 알림
+등록된 대상  알려주고 싶은것
+
+내가 구독자 서버쪽에 값을 알기 위해서는 폴링방식으로 확인한다 나쁜코드
+좋게 디자인 하는것 내가 갱신되었을때 구독자들이 볼수 있어야한다.
+반대로 서버가 갱신되었을때 클라이언트 들이 볼 수 있는것
+
+중재자 패턴과 비슷하지만 다르다. 
+중재자에서 중간에서 하는 역할
+
+publisher 뉴스 머신, AnnualSub, Event 
+
+중재자 패턴 미디에이터 패턴
+비행기, 채팅 예시 중재자를 통해 받음
+
+추상클래스와 인터페이스의 차이
+추상클래스가 더 유연하다. 인터페이스는 다 구현해야하기 때문
+
+미디에이터 브로커 패턴 
+메시지를 영상으로 처리하면 실시간 인터넷 방송
+
+MES
+IIOT
+
+http://scadaict.com/
+사람이 판단해서 제어하는것에서 기계스스로가 판단해서 제어하는것 => 스마트팩토리
+지멘스, 미쯔비시, LS ELECTRIC
+각 다른 회사의 다른장비라도 똑같이 동작하도록 해야하는게 해야할일
+COGNEX
+
+ETRI 기술동향 (최신 기술 찾을수있는 사이트)
+https://ettrends.etri.re.kr/ettrends/198/;jsessionid=EDCE07466A33DE05FF0F21FCDF2B9379
+논문 웹사이트
+https://www.kspe.or.kr/
+https://scienceon.kisti.re.kr/main/mainForm.do
+학위논문 졸업시키기위해서 제출하는 논문이라서 신뢰성이 비교적으로 낮음
+공식화, 재현할수있으면 좋은 논문
+논문에 있는 용어들을 여러 의견으로 받아들여서 좋은 논문의 내용을 판별해
+내것으로 만드는것이 필요하다.
+IEEE 융합 전자 소프트웨어 논문 
+
+Mediator pattern
+https://www.dofactory.com/net/mediator-design-pattern
+
+Adapter pattern
+https://github.com/d0pare/design-patterns/tree/master/src/adapter
+
+https://www.dofactory.com/net/adapter-design-pattern
+같은 Display이지만 각다른 매개변수에 따른 결과값이 나온다.
+어댑터 클래스는 기존 클래스를 사용하고 싶지만 그 인터페이스가 나머지 코드와
+호환되지 않을 때 사용하세요.
+
